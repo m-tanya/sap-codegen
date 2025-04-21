@@ -1,0 +1,213 @@
+{
+  "namespace": "my.bookshop",
+  "definitions": {
+    "my.bookshop.Books": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "title": {
+          "localized": true,
+          "type": "cds.String"
+        },
+        "stock": {
+          "type": "cds.Integer"
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "my.bookshop.Books.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "ID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "my.bookshop.Books.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "ID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ID"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      },
+      "$localized": true
+    },
+    "CatalogService": {
+      "@source": "cat-service.cds",
+      "kind": "service"
+    },
+    "CatalogService.Books": {
+      "kind": "entity",
+      "@readonly": true,
+      "projection": {
+        "from": {
+          "ref": [
+            "my.bookshop.Books"
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "title": {
+          "localized": true,
+          "type": "cds.String"
+        },
+        "stock": {
+          "type": "cds.Integer"
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "CatalogService.Books.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "ID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "CatalogService.Books.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "ID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ID"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      },
+      "$localized": true,
+      "@Capabilities.DeleteRestrictions.Deletable": false,
+      "@Capabilities.InsertRestrictions.Insertable": false,
+      "@Capabilities.UpdateRestrictions.Updatable": false
+    },
+    "my.bookshop.Books.texts": {
+      "kind": "entity",
+      "@odata.draft.enabled": false,
+      "elements": {
+        "locale": {
+          "key": true,
+          "type": "cds.String",
+          "length": 14
+        },
+        "ID": {
+          "@odata.containment.ignore": true,
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "title": {
+          "localized": null,
+          "type": "cds.String"
+        }
+      }
+    },
+    "CatalogService.Books.texts": {
+      "kind": "entity",
+      "@cds.autoexposed": true,
+      "@odata.draft.enabled": false,
+      "projection": {
+        "from": {
+          "ref": [
+            "my.bookshop.Books.texts"
+          ]
+        }
+      },
+      "elements": {
+        "locale": {
+          "key": true,
+          "type": "cds.String",
+          "length": 14
+        },
+        "ID": {
+          "@odata.containment.ignore": true,
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "title": {
+          "localized": null,
+          "type": "cds.String"
+        }
+      }
+    }
+  },
+  "meta": {
+    "creator": "CDS Compiler v5.7.2",
+    "flavor": "inferred"
+  },
+  "$version": "2.0"
+}
