@@ -1,0 +1,16 @@
+ Java Class Summary (integration-tests/src/main/java/TestRun.java)
+
+ Class: TestRun
+  Method: main → Return Type: void
+Params: String[] args
+  Method: greet → Return Type: void
+Params: String name
+  Method: add → Return Type: int
+Params: int a, int b
+  Method: isEven → Return Type: boolean
+Params: int num
+  Method: log → Return Type: void
+Params: String message
+  Method: format → Return Type: String
+Params: String template, String value
+
